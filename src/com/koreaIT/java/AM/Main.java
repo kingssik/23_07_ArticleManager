@@ -6,7 +6,7 @@ public class Main {
     System.out.println("== 프로그램 시작 ==");
 
     Scanner sc = new Scanner(System.in);
-    System.out.printf("명령어 ) ");
+    System.out.printf("명령어 > ");
 
     String cmd;
     cmd = sc.next();
