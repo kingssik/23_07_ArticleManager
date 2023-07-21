@@ -1,4 +1,5 @@
 package com.koreaIT.java.AM;
+
 import java.util.Scanner;
 
 public class Main {
@@ -6,13 +7,15 @@ public class Main {
     System.out.println("== 프로그램 시작 ==");
 
     Scanner sc = new Scanner(System.in);
-    System.out.printf("명령어 > ");
 
-    String cmd;
-    cmd = sc.next();
-    System.out.printf("입력된 명령어 : %s\n", cmd);
-    int num = sc.nextInt();
-    System.out.printf("입력된 정수 : %d\n", num);
+    while (true) {
+      System.out.printf("명령어 ) ");
+      String cmd = sc.nextLine();
+
+      if (cmd.equals("system exit")) {
+        break;
+      }
+    }
 
     sc.close();
 
