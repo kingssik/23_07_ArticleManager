@@ -5,13 +5,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+  private static List<Article> articles;
+
+  static {
+    articles = new ArrayList<>();
+  }
+
   public static void main(String[] args) {
     System.out.println("== 프로그램 시작 ==");
 
-    Scanner sc = new Scanner(System.in);
-    int lastArticleId = 0;
+    makeTestData();
 
-    List<Article> articles = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
 
     while (true) {
       System.out.printf("명령어 ) ");
@@ -27,8 +32,7 @@ public class Main {
       }
 
       if (cmd.equals("article write")) {
-        int id = lastArticleId + 1;
-        lastArticleId = id;
+        int id = articles.size() + 1; // articles.size();
 
         String regDate = Util.getNowDateStr();
         System.out.printf("제목 : ");
@@ -45,9 +49,9 @@ public class Main {
           System.out.println("게시글이 없습니다");
           continue;
         } else {
+          System.out.println("번호   |    제목    |   조회   ");
           for (int i = articles.size() - 1; i >= 0; i--) {
             Article article = articles.get(i);
-            System.out.println("번호   |    제목    |   조회   ");
             System.out.printf("%4d   |   %4s   |   %2d   \n", article.id, article.title, article.viewCnt);
           }
         }
@@ -137,6 +141,13 @@ public class Main {
 
     System.out.println("== 프로그램 종료 ==");
   }
+
+  private static void makeTestData() {
+    System.out.println("테스트데이터를 생성합니다");
+    articles.add(new Article(1, Util.getNowDateStr(), "title1", "body1", 11));
+    articles.add(new Article(2, Util.getNowDateStr(), "title2", "body2", 22));
+    articles.add(new Article(3, Util.getNowDateStr(), "title3", "body3", 33));
+  }
 }
 
 class Article {
@@ -147,11 +158,14 @@ class Article {
   int viewCnt;
 
   public Article(int id, String regDate, String title, String body) {
+    this(id, regDate, title, body, 0);
+  }
+  public Article(int id, String regDate, String title, String body, int viewCnt) {
     this.id = id;
     this.regDate = regDate;
     this.title = title;
     this.body = body;
-    this.viewCnt = 0;
+    this.viewCnt = viewCnt;
   }
 
   public void increaseViewCnt() {
