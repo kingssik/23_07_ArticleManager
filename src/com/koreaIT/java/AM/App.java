@@ -1,6 +1,7 @@
 package com.koreaIT.java.AM;
 
 import com.koreaIT.java.AM.dto.Article;
+import com.koreaIT.java.AM.dto.Member;
 import com.koreaIT.java.AM.util.Util;
 
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.Scanner;
 
 public class App {
   private List<Article> articles;
+  private List<Member> members;
 
   public App() {
     articles = new ArrayList<>();
+    members = new ArrayList<>();
   }
 
   public void start() {
@@ -31,10 +34,48 @@ public class App {
       }
 
       if (cmd.equals("system exit")) {
+        System.out.println("== 프로그램 종료 ==");
         break;
       }
 
-      if (cmd.equals("article write")) {
+      if (cmd.equals("member join")) {
+        int id = members.size() + 1;
+
+        String regDate = Util.getNowDateStr();
+        System.out.printf("로그인 아이디 : ");
+        String loginId = sc.nextLine();
+
+        String loginPw = null;
+        String loginPwCheck = null;
+
+        while (true) {
+          System.out.printf("로그인 비밀번호 : ");
+          loginPw = sc.nextLine();
+          System.out.printf("로그인 비밀번호 확인 : ");
+          loginPwCheck = sc.nextLine();
+
+          if (loginPw.equals(loginPwCheck) == false) {
+            System.out.printf("비밀번호를 다시 입력하세요\n");
+            continue;
+          }
+
+          break;
+        }
+
+        System.out.printf("이름 : ");
+        String name = sc.nextLine();
+
+        Member member = new Member(id, regDate, loginId, loginPw, name);
+        members.add(member);
+
+        System.out.printf("%d번 회원이 가입했습니다\n", id);
+
+      } else if (cmd.startsWith("article list")) {
+        if (articles.size() == 0) {
+          System.out.println("게시글이 없습니다");
+          continue;
+        }
+      } else if (cmd.equals("article write")) {
         int id = articles.size() + 1; // articles.size();
 
         String regDate = Util.getNowDateStr();
@@ -137,7 +178,6 @@ public class App {
 
     sc.close();
 
-    System.out.println("== 프로그램 종료 ==");
   }
 
   private int getArticleIndexById(int id) {
@@ -153,20 +193,6 @@ public class App {
   }
 
   private Article getArticleById(int id) {
-//    for (int i = 0; i < articles.size(); i++) {
-//      Article article = articles.get(i);
-//
-//      if (article.id == id) {
-//        return article;
-//      }
-//    }
-
-//    for (Article article : articles) {
-//      if (article.id == id) {
-//        return article;
-//      }
-//    }
-
     int index = getArticleIndexById(id);
 
     if (index != -1) {
@@ -181,5 +207,4 @@ public class App {
     articles.add(new Article(2, Util.getNowDateStr(), "title2", "body2", 22));
     articles.add(new Article(3, Util.getNowDateStr(), "title3", "body3", 33));
   }
-
 }
