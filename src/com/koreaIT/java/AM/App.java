@@ -70,11 +70,6 @@ public class App {
 
         System.out.printf("%d번 회원이 가입했습니다\n", id);
 
-      } else if (cmd.startsWith("article list")) {
-        if (articles.size() == 0) {
-          System.out.println("게시글이 없습니다");
-          continue;
-        }
       } else if (cmd.equals("article write")) {
         int id = articles.size() + 1; // articles.size();
 
