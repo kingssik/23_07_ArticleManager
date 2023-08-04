@@ -3,31 +3,23 @@ package com.koreaIT.java.AM;
 import com.koreaIT.java.AM.controller.ArticleController;
 import com.koreaIT.java.AM.controller.Controller;
 import com.koreaIT.java.AM.controller.MemberController;
-import com.koreaIT.java.AM.dto.Article;
-import com.koreaIT.java.AM.dto.Member;
-import com.koreaIT.java.AM.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class App {
-  private List<Article> articles;
-  private List<Member> members;
 
   public App() {
-    articles = new ArrayList<>();
-    members = new ArrayList<>();
   }
 
   public void start() {
     System.out.println("== 프로그램 시작 ==");
 
-    makeTestData();
 
     Scanner sc = new Scanner(System.in);
-    MemberController memberController = new MemberController(sc, members);
-    ArticleController articleController = new ArticleController(sc, articles);
+    MemberController memberController = new MemberController(sc);
+    ArticleController articleController = new ArticleController(sc);
+
+    articleController.makeTestData();
 
     while (true) {
       System.out.printf("명령어 ) ");
@@ -70,10 +62,4 @@ public class App {
     sc.close();
   }
 
-  private void makeTestData() {
-    System.out.println("테스트데이터를 생성합니다");
-    articles.add(new Article(1, Util.getNowDateStr(), "title1", "body1", 11));
-    articles.add(new Article(2, Util.getNowDateStr(), "title2", "body2", 22));
-    articles.add(new Article(3, Util.getNowDateStr(), "title3", "body3", 33));
-  }
 }

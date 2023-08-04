@@ -13,6 +13,11 @@ public class ArticleController extends Controller {
   private Scanner sc;
   private String actionMethodName;
 
+  public ArticleController(Scanner sc) {
+    this.sc = sc;
+    articles = new ArrayList<>();
+  }
+
   @Override
   public void doAction(String cmd, String actionMethodName) {
     this.cmd = cmd;
@@ -37,12 +42,7 @@ public class ArticleController extends Controller {
     }
   }
 
-  public ArticleController(Scanner sc, List<Article> articles) {
-    this.sc = sc;
-    this.articles = articles;
-  }
-
-  public void doWrite() {
+  private void doWrite() {
     int id = articles.size() + 1;
 
     String regDate = Util.getNowDateStr();
@@ -57,7 +57,7 @@ public class ArticleController extends Controller {
     System.out.printf("%d번 글이 생성되었습니다\n", id);
   }
 
-  public void showList() {
+  private void showList() {
     if (articles.size() == 0) {
       System.out.println("게시글이 없습니다");
       return;
@@ -90,7 +90,7 @@ public class ArticleController extends Controller {
     }
   }
 
-  public void showDetail() {
+  private void showDetail() {
     String[] cmdBits = cmd.split(" ");
     int id = Integer.parseInt(cmdBits[2]);  // "1" -> 1
     Article foundArticle = getArticleById(id);
@@ -109,7 +109,7 @@ public class ArticleController extends Controller {
     System.out.printf("조회수 : %d\n", foundArticle.viewCnt);
   }
 
-  public void doModify() {
+  private void doModify() {
     String[] cmdBits = cmd.split(" ");
     int id = Integer.parseInt(cmdBits[2]);  // "1" -> 1
     Article foundArticle = getArticleById(id);
@@ -129,7 +129,7 @@ public class ArticleController extends Controller {
     System.out.printf("%d번 게시물이 수정되었습니다\n", id);
   }
 
-  public void doDelete() {
+  private void doDelete() {
     String[] cmdBits = cmd.split(" ");
     int id = Integer.parseInt(cmdBits[2]);  // "1" -> 1
     int foundIndex = getArticleIndexById(id);
@@ -164,5 +164,11 @@ public class ArticleController extends Controller {
     return null;
   }
 
+  public void makeTestData() {
+    System.out.println("테스트데이터를 생성합니다");
+    articles.add(new Article(1, Util.getNowDateStr(), "title1", "body1", 11));
+    articles.add(new Article(2, Util.getNowDateStr(), "title2", "body2", 22));
+    articles.add(new Article(3, Util.getNowDateStr(), "title3", "body3", 33));
+  }
 
 }

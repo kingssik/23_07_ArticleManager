@@ -3,6 +3,7 @@ package com.koreaIT.java.AM.controller;
 import com.koreaIT.java.AM.dto.Member;
 import com.koreaIT.java.AM.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +12,11 @@ public class MemberController extends Controller {
   private String cmd;
   private Scanner sc;
   private String actionMethodName;
+
+  public MemberController(Scanner sc) {
+    this.sc = sc;
+    members = new ArrayList<>();
+  }
 
   @Override
   public void doAction(String cmd, String actionMethodName) {
@@ -24,12 +30,7 @@ public class MemberController extends Controller {
     }
   }
 
-  public MemberController(Scanner sc, List<Member> members) {
-    this.sc = sc;
-    this.members = members;
-  }
-
-  public void doJoin() {
+  private void doJoin() {
     int id = members.size() + 1;
 
     String regDate = Util.getNowDateStr();
