@@ -61,7 +61,6 @@ public class MemberController extends Controller {
     System.out.printf("%s님이 로그인에 성공하였습니다\n", loginedMember.name);
   }
 
-
   private void doJoin() {
     int id = members.size() + 1;
 
@@ -132,5 +131,12 @@ public class MemberController extends Controller {
       i++;
     }
     return -1;
+  }
+
+  public void makeTestData() {
+    System.out.println("회원 테스트데이터를 생성합니다");
+    members.add(new Member(1, Util.getNowDateStr(), "admin", "admin", "관리자"));
+    members.add(new Member(2, Util.getNowDateStr(), "test1", "test1", "회원1"));
+    members.add(new Member(3, Util.getNowDateStr(), "test2", "test3", "회원2"));
   }
 }
