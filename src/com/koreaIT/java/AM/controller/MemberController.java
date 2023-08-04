@@ -6,9 +6,23 @@ import com.koreaIT.java.AM.util.Util;
 import java.util.List;
 import java.util.Scanner;
 
-public class MemberController {
+public class MemberController extends Controller {
   private List<Member> members;
+  private String cmd;
   private Scanner sc;
+  private String actionMethodName;
+
+  @Override
+  public void doAction(String cmd, String actionMethodName) {
+    this.cmd = cmd;
+    this.actionMethodName = actionMethodName;
+
+    switch (actionMethodName) {
+      case "join":
+        doJoin();
+        break;
+    }
+  }
 
   public MemberController(Scanner sc, List<Member> members) {
     this.sc = sc;
