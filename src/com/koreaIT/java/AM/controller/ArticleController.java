@@ -123,6 +123,11 @@ public class ArticleController extends Controller {
     int id = Integer.parseInt(cmdBits[2]);  // "1" -> 1
     Article foundArticle = getArticleById(id);
 
+    if (foundArticle.memberId != loginedMember.id) {
+      System.out.printf("권한이 없습니다\n");
+      return;
+    }
+
     if (foundArticle == null) {
       System.out.printf("%d번 게시물은 존재하지 않습니다\n", id);
       return;
@@ -141,14 +146,19 @@ public class ArticleController extends Controller {
   private void doDelete() {
     String[] cmdBits = cmd.split(" ");
     int id = Integer.parseInt(cmdBits[2]);  // "1" -> 1
-    int foundIndex = getArticleIndexById(id);
+    Article foundArticle = getArticleById(id);
 
-    if (foundIndex == -1) {
+    if (foundArticle.memberId != loginedMember.id) {
+      System.out.printf("권한이 없습니다\n");
+      return;
+    }
+
+    if (foundArticle == null) {
       System.out.printf("%d번 게시물은 존재하지 않습니다\n", id);
       return;
     }
 
-    articles.remove(foundIndex);
+    articles.remove(foundArticle);
     System.out.printf("%d번 게시물이 삭제되었습니다\n", id);
   }
 
