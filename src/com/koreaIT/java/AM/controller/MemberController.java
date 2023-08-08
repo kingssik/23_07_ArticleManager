@@ -1,9 +1,9 @@
 package com.koreaIT.java.AM.controller;
 
+import com.koreaIT.java.AM.container.Container;
 import com.koreaIT.java.AM.dto.Member;
 import com.koreaIT.java.AM.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ public class MemberController extends Controller {
 
   public MemberController(Scanner sc) {
     this.sc = sc;
-    members = new ArrayList<>();
+    members = Container.memberDao.members;
   }
 
   @Override
