@@ -56,6 +56,31 @@ public class App {
         continue;
       }
 
+      String actionName = controllerName + "/" + actionMethodName;
+
+      switch (actionName) {
+        case "article/write":
+        case "article/delete":
+        case "article/modify":
+        case "member/logout":
+          if (Controller.isLogined() == false) {
+            System.out.println("로그인 후 이용하세요");
+            continue;
+          }
+
+          break;
+      }
+
+      switch (actionName) {
+        case "member/join":
+        case "member/login":
+          if (Controller.isLogined()) {
+            System.out.println("로그아웃 후 이용하세요");
+            continue;
+          }
+
+          break;
+      }
       controller.doAction(cmd, actionMethodName);
     }
 
